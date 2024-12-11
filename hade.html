@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snake Game</title>
+  <title>Honička  s hadem</title>
   <style>
     body {
       margin: 0;
@@ -11,15 +11,48 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: linear-gradient(to bottom, #49b2d5, #6f86d6);
+      background: linear-gradient(to bottom, #48c6ef, #6f86d6);
       font-family: Arial, sans-serif;
     }
     canvas {
       border: 2px solid #fff;
       background: #222;
-      display: block;
+      display: none;
+    }
+    #menu {
+      text-align: center;
+    }
+    #settings {
+      display: none;
+      background: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    button {
+      margin: 5px;
+      padding: 15px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .play-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .settings-btn {
+      background-color: #f0ad4e;
+      color: white;
     }
   </style>
+</head>
+<body>
+<div id="menu">
+  <!-- Main menu with Play and Settings buttons -->
+  <button class="play-btn" onclick="startGame()">Play</button>
+  <button class="settings-btn" onclick="toggleSettings()">⚙</button>
+  <div id="settings">
 
   </body>
 </html>
