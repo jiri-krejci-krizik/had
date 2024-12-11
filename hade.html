@@ -31,7 +31,7 @@
     }
     button {
       margin: 5px;
-      padding: 15px 25px;
+      padding: 10px 20px;
       font-size: 16px;
       border: none;
       border-radius: 5px;
@@ -49,10 +49,28 @@
 </head>
 <body>
 <div id="menu">
-  <!-- Main menu with Play and Settings buttons -->
+  <!-- menu (play, nastaveni) -->
   <button class="play-btn" onclick="startGame()">Play</button>
   <button class="settings-btn" onclick="toggleSettings()">⚙</button>
   <div id="settings">
-
+    <!-- druhý menu kde hodim zvuk a barvu hada -->
+    <label>
+      <input type="checkbox" id="soundToggle" checked> Zvuk
+    </label>
+    <br>
+    <label>
+      Snake Color:
+      <input type="color" id="snakeColor" value="#0f0">
+    </label>
+  </div>
+</div>
+<canvas id="gameCanvas"></canvas>
+  <script>
+    // Odkazy na HTML elementy
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const menu = document.getElementById('menu');
+    const settings = document.getElementById('settings');
+    </script>
   </body>
 </html>
