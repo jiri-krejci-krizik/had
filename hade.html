@@ -105,6 +105,25 @@
       ctx.arc(x + gridSize / 2, y + gridSize / 2, gridSize / 2, 0, Math.PI * 2);
       ctx.fill();
     }
+    function update() {
+      const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+      snake.unshift(head); // dat hlavu na zacatek
+
+      // had sní jidlo
+      if (head.x === food.x && head.y === food.y) {
+        score++; // Zvýšení skóre
+        food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; //zmena pozice jidla
+      }
+
+
+      if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height) {
+        alert('Konec hry! Trefil si zeď ve 120kmh.');
+        resetGame();
+      } else if (snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
+        alert('Konec hry! Zkusil sis ho dát do pusy.');
+        resetGame();
+      }
+    }
 
     </script>
   </body>
