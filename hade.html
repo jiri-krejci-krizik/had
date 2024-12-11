@@ -79,6 +79,33 @@
     let food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) };
     let direction = { x: 0, y: 0 };
     let score = 0;
+
+    //ovládani mysi
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      const head = snake[0];
+      const dx = mouseX - (head.x + gridSize / 2);
+      const dy = mouseY - (head.y + gridSize / 2);
+
+      if (Math.abs(dx) > Math.abs(dy)) {
+        direction = dx > 0 ? { x: gridSize, y: 0 } : { x: -gridSize, y: 0 };
+      } else {
+        direction = dy > 0 ? { x: 0, y: gridSize } : { x: 0, y: -gridSize };
+      }
+    });
+
+    function getRandomCoordinate(max) { //generovani pozice jidla
+      return Math.floor(Math.random() * (max / gridSize)) * gridSize;
+    }
+    function drawFood(x, y) { //zobrazeni jidla
+      ctx.fillStyle = 'red';
+      ctx.beginPath();
+      ctx.arc(x + gridSize / 2, y + gridSize / 2, gridSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
     </script>
   </body>
 </html>
