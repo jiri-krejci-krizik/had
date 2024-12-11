@@ -124,6 +124,14 @@
         resetGame();
       }
     }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // uklizeni plohchy
+      drawGrid(); // mrizka
+      const snakeColor = document.getElementById('snakeColor').value; // dosazeni barvy hada z toho co si kdo vybral
+
+      snake.forEach(segment => drawCircle(segment.x, segment.y, snakeColor)); // had
+      drawFood(food.x, food.y); // jidlo
+    }
 
     </script>
   </body>
