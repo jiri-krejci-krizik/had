@@ -146,6 +146,11 @@
       score = 0; // reset skore
       food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; // jidlo random hozeny
     }
+    function startGame() {
+      menu.style.display = 'none'; // skryti hlavniho menu
+      canvas.style.display = 'block'; // hraci pole show
+      gameLoop(); // zap. herniho cyklu
+    }
     </script>
   </body>
 </html>
