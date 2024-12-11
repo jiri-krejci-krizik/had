@@ -125,12 +125,20 @@
       }
     }
     function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // uklizeni plohchy
-      drawGrid(); // mrizka
-      const snakeColor = document.getElementById('snakeColor').value; // dosazeni barvy hada z toho co si kdo vybral
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // uklid platna
+      const snakeColor = document.getElementById('snakeColor').value; // barva podle vyberu
 
-      snake.forEach(segment => drawCircle(segment.x, segment.y, snakeColor)); // had
-      drawFood(food.x, food.y); // jidlo
+      // casti hada
+      snake.forEach((segment, index) => {
+        if (index === 0) {
+          // Hlava hada má jinou barvu
+          drawCircle(segment.x, segment.y, 'yellow');
+        } else {
+          drawCircle(segment.x, segment.y, snakeColor);
+        }
+      });
+
+      drawFood(food.x, food.y); jidlo
     }
 
     </script>
