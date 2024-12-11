@@ -151,6 +151,16 @@
       canvas.style.display = 'block'; // hraci pole show
       gameLoop(); // zap. herniho cyklu
     }
+    function toggleSettings() { //zap. nastaveni
+      settings.style.display = settings.style.display === 'block' ? 'none' : 'block';
+    }
+    function gameLoop() {
+      if (menu.style.display === 'none') { // běží?
+        update(); // stav hry
+        draw();
+        setTimeout(gameLoop, 100); // spousteni cyklu po pauzach
+      }
+    }
     </script>
   </body>
 </html>
