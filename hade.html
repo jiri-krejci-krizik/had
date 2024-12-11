@@ -140,7 +140,12 @@
 
       drawFood(food.x, food.y); jidlo
     }
-
+    function resetGame() {
+      snake = [{ x: 200, y: 200 }]; // had zpátky na pozice
+      direction = { x: 0, y: 0 };
+      score = 0; // reset skore
+      food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; // jidlo random hozeny
+    }
     </script>
   </body>
 </html>
