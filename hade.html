@@ -59,8 +59,8 @@
     </label>
     <br>
     <label>
-      Snake Color:
-      <input type="color" id="snakeColor" value="#0f0">
+      Barva tvého hada:
+      <input type="color" id="snakeColor" value="#46f000">
     </label>
   </div>
 </div>
@@ -138,7 +138,7 @@
         }
       });
 
-      drawFood(food.x, food.y); jidlo
+      drawFood(food.x, food.y); //jidlo
     }
     function resetGame() {
       snake = [{ x: 200, y: 200 }]; // had zpátky na pozice
@@ -146,10 +146,27 @@
       score = 0; // reset skore
       food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; // jidlo random hozeny
     }
+    let gameStarted = false; // Přidání flagu pro sledování, jestli hra běží
+
     function startGame() {
-      menu.style.display = 'none'; // skryti hlavniho menu
-      canvas.style.display = 'block'; // hraci pole show
-      gameLoop(); // zap. herniho cyklu
+      menu.style.display = 'none'; // Skrytí hlavního menu
+      canvas.style.display = 'block'; // Zobrazení plátna
+      let countdown = 3; //3 2 1 bum
+
+      const interval = setInterval(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Vyčištění plátna
+        ctx.fillStyle = 'white';
+        ctx.font = '50px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(countdown, canvas.width / 2, canvas.height / 2); // ukaz odpocet
+        countdown--;
+
+        if (countdown < 0) {
+          clearInterval(interval); // Zastavení odpočtu
+          gameStarted = true; // Povolení spuštění hry
+          gameLoop(); // Start herní smyčky
+        }
+      }, 1000);
     }
     function toggleSettings() { //zap. nastaveni
       settings.style.display = settings.style.display === 'block' ? 'none' : 'block';
