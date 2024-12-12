@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Honička  s hadem</title>
+  <title>Honička hada</title>
   <style>
     body {
       margin: 0;
@@ -79,6 +79,8 @@
     let food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) };
     let direction = { x: 0, y: 0 };
     let score = 0;
+    let snakelength = 2;
+    const snakebody = [snakelength];
 
     //ovládani mysi
     canvas.addEventListener('mousemove', (e) => {
@@ -107,15 +109,15 @@
     }
     function update() {
       const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
-      snake.unshift(head); // dat hlavu na zacatek
+      snake.unshift(head); // hlava vždy dopredu
 
-      // had sní jidlo
+      // had sní jablko
       if (head.x === food.x && head.y === food.y) {
-        score++; // Zvýšení skóre
-        food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; //zmena pozice jidla
+        score++; // zvýšení skóre
+        food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; // nova pozice jablka
       }
 
-
+      // ses ve svodidlech nebo ses do nej kousnul
       if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height) {
         alert('Konec hry! Trefil si zeď ve 120kmh.');
         resetGame();
@@ -124,6 +126,7 @@
         resetGame();
       }
     }
+
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height); // uklid platna
       const snakeColor = document.getElementById('snakeColor').value; // barva podle vyberu
@@ -131,7 +134,7 @@
       // casti hada
       snake.forEach((segment, index) => {
         if (index === 0) {
-          // Hlava hada má jinou barvu
+          // hlava ma zlutou barvu
           drawCircle(segment.x, segment.y, 'yellow');
         } else {
           drawCircle(segment.x, segment.y, snakeColor);
@@ -146,31 +149,47 @@
       score = 0; // reset skore
       food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; // jidlo random hozeny
     }
-    let gameStarted = false; // Přidání flagu pro sledování, jestli hra běží
-
-    function startGame() {
-      menu.style.display = 'none'; // Skrytí hlavního menu
-      canvas.style.display = 'block'; // Zobrazení plátna
-      let countdown = 3; //3 2 1 bum
-
-      const interval = setInterval(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Vyčištění plátna
-        ctx.fillStyle = 'white';
-        ctx.font = '50px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(countdown, canvas.width / 2, canvas.height / 2); // ukaz odpocet
-        countdown--;
-
-        if (countdown < 0) {
-          clearInterval(interval); // Zastavení odpočtu
-          gameStarted = true; // Povolení spuštění hry
-          gameLoop(); // Start herní smyčky
-        }
-      }, 1000);
-    }
+    let gameStarted = false;
     function toggleSettings() { //zap. nastaveni
       settings.style.display = settings.style.display === 'block' ? 'none' : 'block';
     }
+    function startGame() {
+      menu.style.display = 'none';
+      canvas.style.display = 'block';
+      let countdown = 3;
+
+      const interval = setInterval(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        ctx.font = '50px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(countdown, canvas.width / 2, canvas.height / 2);
+        countdown--;
+
+        if (countdown < 0) {
+          clearInterval(interval);
+          gameStarted = true;
+          draw();
+          gameLoop();
+        }
+      }, 1000);
+    }
+
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const snakeColor = document.getElementById('snakeColor').value;
+
+      snake.forEach((segment, index) => {
+        ctx.fillStyle = index === 0 ? 'yellow' : snakeColor;
+        ctx.beginPath();
+        ctx.arc(segment.x + gridSize / 2, segment.y + gridSize / 2, gridSize / 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      drawFood(food.x, food.y);
+    }
+
     function gameLoop() {
       if (menu.style.display === 'none') { // běží?
         update(); // stav hry
