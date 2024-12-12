@@ -115,7 +115,9 @@
       if (head.x === food.x && head.y === food.y) {
         score++; // zvýšení skóre
         food = { x: getRandomCoordinate(canvas.width), y: getRandomCoordinate(canvas.height) }; // nova pozice jablka
-      }
+      } else {
+      snake.pop();
+    }
 
       // ses ve svodidlech nebo ses do nej kousnul
       if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height) {
